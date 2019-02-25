@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.alipay.sofa</groupId>
+        <artifactId>sofaboot-dependencies</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+    </parent>
+    <!--<parent>-->
+        <!--&lt;!&ndash;spring boot&ndash;&gt;-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-parent</artifactId>-->
+        <!--<version>2.0.3.RELEASE</version>-->
+    <!--</parent>-->
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>me.qlong.tech</groupId>
+    <artifactId>app-one</artifactId>
+    <version>1.0.0</version>
+
+    <properties>
+        <sofa.boot.version>3.0.0-SNAPSHOT</sofa.boot.version>
+        <sofa.ark.version>0.5.2</sofa.ark.version>
+        <sofa.lookout.version>1.5.2</sofa.lookout.version>
+        <sofa.jarslink.version>2.0.0</sofa.jarslink.version>
+    </properties>
+
+    <dependencies>
+        <!-- 用于 ark-biz 动态管理 -->
+        <dependency>
+            <groupId>com.alipay.sofa</groupId>
+            <artifactId>sofa-jarslink-ark-starter</artifactId>
+            <classifier>ark-plugin</classifier>
+            <version>2.0.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- 用于跨 ark-biz 调用，是一个 ark-plugin -->
+        <dependency>
+            <groupId>com.alipay.sofa</groupId>
+            <artifactId>runtime-sofa-boot-plugin</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alipay.sofa</groupId>
+            <artifactId>runtime-sofa-boot-starter</artifactId>
+            <version>${sofa.boot.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.alipay.sofa</groupId>
+                    <artifactId>hessian</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--&lt;!&ndash; 用于 IDE 运行或者执行测试用例 &ndash;&gt;-->
+        <dependency>
+            <groupId>com.alipay.sofa</groupId>
+            <artifactId>sofa-ark-springboot-starter</artifactId>
+            <version>${sofa.ark.version}</version>
+        </dependency>
+
+        <!-- web 应用 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alipay.sofa</groupId>
+            <artifactId>sofa-ark-container</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+            <!--<version>0.6.0-SNAPSHOT</version>-->
+        </dependency>
+
+        <dependency>
+            <groupId>com.alipay.sofa</groupId>
+            <artifactId>sofa-jarslink-runtime</artifactId>
+            <version>2.0.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- facade -->
+        <dependency>
+            <groupId>me.qlong.tech</groupId>
+            <artifactId>facade</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+
+        <!--<dependency>-->
+            <!--<groupId>com.caucho</groupId>-->
+            <!--<artifactId>hessian</artifactId>-->
+            <!--<version>4.0.38</version>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>com.alipay.sofa</groupId>
+            <artifactId>hessian</artifactId>
+            <version>4.0.2</version>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <id>snapshot</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <id>snapshot</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.alipay.sofa</groupId>
+                <artifactId>sofa-ark-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <!--goal executed to generate executable-ark-jar -->
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+
+                        <configuration>
+                            <!--specify destination where executable-ark-jar will be saved, default saved to ${project.build.directory}-->
+                            <outputDirectory>target</outputDirectory>
+                            <!--default none-->
+                            <arkClassifier>executable-ark</arkClassifier>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>
