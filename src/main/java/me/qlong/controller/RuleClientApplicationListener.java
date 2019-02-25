@@ -51,7 +51,6 @@ public class RuleClientApplicationListener implements ApplicationListener<Contex
         try {
             ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
             out = new Hessian2Output(byteArray);
-            out.setSerializerFactory();
             out.writeObject(obj);
             out.flush();
             return byteArray.toByteArray();
